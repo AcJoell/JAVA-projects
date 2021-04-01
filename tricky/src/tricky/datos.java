@@ -1,13 +1,11 @@
-
 package tricky;
 
 import javax.swing.JOptionPane;
 import java.util.Random;
 
 public class datos {
- 
 
-    public String item = JOptionPane.showInputDialog(null, "Seleccione el item que desea usar");
+    public String item = "X";
     public int turno;
     public int elePc;
     public int eleUser;
