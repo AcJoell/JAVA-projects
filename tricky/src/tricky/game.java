@@ -7,6 +7,7 @@ public class game extends javax.swing.JFrame {
 
     datos execute = new datos();
     String[][] caja = new String[3][3];
+    public int elepc;
     
     public void changeWindow(){
         footer enter = new footer();
@@ -166,6 +167,9 @@ public class game extends javax.swing.JFrame {
         // PO1
         po1.setText(execute.item);
         caja[0][0] = po1.getText();
+        po1.enable(false);
+        elecciones();
+        execute.aleatorPc();
         elecciones();
     }//GEN-LAST:event_po1MouseClicked
 
@@ -173,6 +177,9 @@ public class game extends javax.swing.JFrame {
         // PO2
         po2.setText(execute.item);
         caja[0][1] = po1.getText();
+        po2.enable(false);
+        elecciones();
+        execute.aleatorPc();
         elecciones();
     }//GEN-LAST:event_po2MouseClicked
 
@@ -181,12 +188,16 @@ public class game extends javax.swing.JFrame {
         po3.setText(execute.item);
         caja[0][2] = po1.getText();
         elecciones();
+        execute.aleatorPc();
+        elecciones();
     }//GEN-LAST:event_po3MouseClicked
 
     private void po4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_po4MouseClicked
         // PO4
         po4.setText(execute.item);
         caja[1][0] = po1.getText();
+        elecciones();
+        execute.aleatorPc();
         elecciones();
     }//GEN-LAST:event_po4MouseClicked
 
@@ -195,12 +206,16 @@ public class game extends javax.swing.JFrame {
         po5.setText(execute.item);
         caja[1][1] = po1.getText();
         elecciones();
+        execute.aleatorPc();
+        elecciones();
     }//GEN-LAST:event_po5MouseClicked
 
     private void po6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_po6MouseClicked
         // PO6
         po6.setText(execute.item);
         caja[1][2] = po1.getText();
+        elecciones();
+        execute.aleatorPc();
         elecciones();
     }//GEN-LAST:event_po6MouseClicked
 
@@ -209,12 +224,16 @@ public class game extends javax.swing.JFrame {
         po7.setText(execute.item);
         caja[2][0] = po1.getText();
         elecciones();
+        execute.aleatorPc();
+        elecciones();
     }//GEN-LAST:event_po7MouseClicked
 
     private void po8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_po8MouseClicked
         // PO8
         po8.setText(execute.item);
         caja[2][1] = po1.getText();
+        elecciones();
+        execute.aleatorPc();
         elecciones();
     }//GEN-LAST:event_po8MouseClicked
 
@@ -223,10 +242,11 @@ public class game extends javax.swing.JFrame {
         po9.setText(execute.item);
         caja[2][2] = po1.getText();
         elecciones();
+        execute.aleatorPc();
+        elecciones();
     }//GEN-LAST:event_po9MouseClicked
     
     public void elecciones(){      
-        int elePc = aleatorio.nextInt(9)+1;
         
         //HORIZONTAL
 
@@ -291,6 +311,7 @@ public class game extends javax.swing.JFrame {
     10 11 12
     20 21 22
     */
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
