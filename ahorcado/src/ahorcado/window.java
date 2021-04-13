@@ -10,6 +10,9 @@ public class window extends javax.swing.JFrame {
         this.setTitle("Ahorcado");
         this.setSize(760,450);
         this.setLocationRelativeTo(null);
+        execute.chooseWord();
+        execute.assignLineOfWord();
+        head.setText(""+execute.lineal);
     }
     
     @SuppressWarnings("unchecked")
@@ -18,7 +21,6 @@ public class window extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         l1 = new javax.swing.JLabel();
         l2 = new javax.swing.JLabel();
         l3 = new javax.swing.JLabel();
@@ -48,6 +50,7 @@ public class window extends javax.swing.JFrame {
         l27 = new javax.swing.JLabel();
         head = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        imagenAhorcado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,13 +59,6 @@ public class window extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("HANGMAN GAME");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         l1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -76,54 +72,119 @@ public class window extends javax.swing.JFrame {
         l2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l2.setText("B");
+        l2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l2MouseClicked(evt);
+            }
+        });
 
         l3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l3.setText("C");
+        l3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l3MouseClicked(evt);
+            }
+        });
 
         l4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l4.setText("D");
+        l4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l4MouseClicked(evt);
+            }
+        });
 
         l5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l5.setText("E");
+        l5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l5MouseClicked(evt);
+            }
+        });
 
         l6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l6.setText("F");
+        l6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l6MouseClicked(evt);
+            }
+        });
 
         l7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l7.setText("G");
+        l7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l7MouseClicked(evt);
+            }
+        });
 
         l8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l8.setText("H");
+        l8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l8MouseClicked(evt);
+            }
+        });
 
         l9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l9.setText("I");
+        l9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l9MouseClicked(evt);
+            }
+        });
 
         l10.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l10.setText("J");
+        l10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l10MouseClicked(evt);
+            }
+        });
 
         l11.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l11.setText("K");
+        l11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l11MouseClicked(evt);
+            }
+        });
 
         l12.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l12.setText("L");
+        l12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l12MouseClicked(evt);
+            }
+        });
 
         l13.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l13.setText("M");
+        l13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l13MouseClicked(evt);
+            }
+        });
 
         l14.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l14.setText("N");
+        l14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                l14MouseClicked(evt);
+            }
+        });
 
         l15.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         l15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -177,13 +238,17 @@ public class window extends javax.swing.JFrame {
         l27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l27.setText("Z");
 
-        head.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        head.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         head.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        head.setText("_ _ _ _ _ _ _ _ _ _");
+        head.setText("");
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        imagenAhorcado.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        imagenAhorcado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagenAhorcado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,10 +286,9 @@ public class window extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(l27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(head, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(82, 82, 82)
                                         .addComponent(l1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(l2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,29 +303,31 @@ public class window extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(l7)
                                         .addGap(16, 16, 16)
-                                        .addComponent(l8)))
-                                .addGap(15, 15, 15)
-                                .addComponent(l9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(l8)
+                                        .addGap(15, 15, 15)
+                                        .addComponent(l9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(head, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(l10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(l11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(l12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(l13)
-                                .addGap(18, 18, 18)
-                                .addComponent(l14)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(l11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(l12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(17, 17, 17)
+                                        .addComponent(l13)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(l14))
+                                    .addComponent(imagenAhorcado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -269,17 +335,18 @@ public class window extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(imagenAhorcado, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))
                         .addGap(39, 39, 39))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(head)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(98, 98, 98)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(l3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,6 +380,8 @@ public class window extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
         );
 
+        imagenAhorcado.setVisible(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,19 +396,131 @@ public class window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //button
-        execute.assignWord();
-        execute.chooseWord();
-        head.setText(execute.lose_line[1]);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void l1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l1MouseClicked
         // A clicked
-        String op = "";
-        op=l1.getText();
+        String op = "A";
         execute.playGame(op.charAt(0));
+        l1.setVisible(false);
+        l1.setEnabled(false);
+        execute.print();
     }//GEN-LAST:event_l1MouseClicked
+
+    private void l2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l2MouseClicked
+        // B clicked
+        String op = "B";
+        execute.playGame(op.charAt(0));
+        l2.setVisible(false);
+        l2.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l2MouseClicked
+
+    private void l3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l3MouseClicked
+        // C clicked
+        String op = "C";
+        execute.playGame(op.charAt(0));
+        l3.setVisible(false);
+        l3.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l3MouseClicked
+
+    private void l4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l4MouseClicked
+        // D clicked
+        String op = "D";
+        execute.playGame(op.charAt(0));
+        l4.setVisible(false);
+        l4.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l4MouseClicked
+
+    private void l5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l5MouseClicked
+        // E clicked
+        String op = "E";
+        execute.playGame(op.charAt(0));
+        l5.setVisible(false);
+        l5.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l5MouseClicked
+
+    private void l6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l6MouseClicked
+        // F clicked
+        String op = "F";
+        execute.playGame(op.charAt(0));
+        l6.setVisible(false);
+        l6.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l6MouseClicked
+
+    private void l7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l7MouseClicked
+        // G clicked
+        String op = "G";
+        execute.playGame(op.charAt(0));
+        l7.setVisible(false);
+        l7.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l7MouseClicked
+
+    private void l8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l8MouseClicked
+        // H clicked
+        String op = "H";
+        execute.playGame(op.charAt(0));
+        l8.setVisible(false);
+        l8.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l8MouseClicked
+
+    private void l9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l9MouseClicked
+        // I clicked
+        String op = "I";
+        execute.playGame(op.charAt(0));
+        l9.setVisible(false);
+        l9.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l9MouseClicked
+
+    private void l10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l10MouseClicked
+        // J clicked
+        String op = "J";
+        execute.playGame(op.charAt(0));
+        l10.setVisible(false);
+        l10.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l10MouseClicked
+
+    private void l11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l11MouseClicked
+        // K clicked
+        String op = "K";
+        execute.playGame(op.charAt(0));
+        l11.setVisible(false);
+        l11.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l11MouseClicked
+
+    private void l12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l12MouseClicked
+        // L clicked
+        String op = "L";
+        execute.playGame(op.charAt(0));
+        l12.setVisible(false);
+        l12.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l12MouseClicked
+
+    private void l13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l13MouseClicked
+        // M clicked
+        String op = "M";
+        execute.playGame(op.charAt(0));
+        l13.setVisible(false);
+        l13.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l13MouseClicked
+
+    private void l14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_l14MouseClicked
+        // N clicked
+        String op = "N";
+        execute.playGame(op.charAt(0));
+        l14.setVisible(false);
+        l14.setEnabled(false);
+        execute.print();
+    }//GEN-LAST:event_l14MouseClicked
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -374,8 +555,8 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel head;
-    public static javax.swing.JButton jButton1;
+    public static javax.swing.JLabel head;
+    public static javax.swing.JLabel imagenAhorcado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
