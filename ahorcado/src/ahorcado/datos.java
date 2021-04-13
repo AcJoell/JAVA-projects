@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 
 public class datos {
 
+    // Ver 1.2
+    
     public char[] jugar;
     public String[] guion;
     public String[] palabra;
