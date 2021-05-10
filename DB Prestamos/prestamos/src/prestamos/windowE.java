@@ -70,13 +70,17 @@ public class windowE extends javax.swing.JFrame {
     }
     
     public void printDelete(){
-        String guardarCodigo = codigo.getText();
-        
-        if(estu.delete(guardarCodigo)){
-            JOptionPane.showMessageDialog(null, "Successfully removed");
-        } else {
-            JOptionPane.showMessageDialog(null, "Delete failed");
-        }
+        int fila = listaEstudiante.getSelectedRow();
+        String guardarCodigo = listaEstudiante.getValueAt(fila, 0).toString();
+
+        int answer = Integer.parseInt(JOptionPane.showInputDialog(null, "No podra recuperar los datos borrados.\nDigite:\n1. Continuar\n2. Cancelar"));
+        if(answer == 1){
+            if(estu.delete(guardarCodigo)){
+                JOptionPane.showMessageDialog(null, "Successfully removed");
+            } else {
+                JOptionPane.showMessageDialog(null, "Delete failed");
+            }
+        } else {}
     }
     
     public void printClean(){
@@ -93,6 +97,7 @@ public class windowE extends javax.swing.JFrame {
         if(fila>=0){
             // codigo, nombre, apellido, direccion
             codigo.setText(listaEstudiante.getValueAt(fila, 0).toString());
+            codigo.setEnabled(false);
             nombre.setText(listaEstudiante.getValueAt(fila, 1).toString());
             apellido.setText(listaEstudiante.getValueAt(fila, 2).toString());
             direccion.setText(listaEstudiante.getValueAt(fila, 3).toString());

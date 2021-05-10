@@ -1,8 +1,13 @@
 package prestamos;
 
+import java.awt.Image;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class windowL extends javax.swing.JFrame {
@@ -21,13 +26,16 @@ public class windowL extends javax.swing.JFrame {
         String guardarTitulo = titulo.getText();
         String guardarEditor = editorial.getText();
         String guardarAutor = autor.getText();
+        String guardarImg = img.getText();
         int guardarPaginas = Integer.parseInt(pagina.getText());
         
-        if(lib.create(guardarCodigo, guardarTitulo, guardarEditor, guardarAutor, guardarPaginas)){
-            JOptionPane.showMessageDialog(null, "El libro se ha creado con exito...");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Hubo un error al crear el libro...");
+        if(guardarCodigo.length() > 0 && guardarTitulo.length() != 0 && guardarEditor.length() != 0){
+            if(lib.create(guardarCodigo, guardarTitulo, guardarEditor, guardarAutor, guardarPaginas, guardarImg)){
+                JOptionPane.showMessageDialog(null, "El libro se ha creado con exito...");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Hubo un error al crear el libro...");
+            }
         }
     }
     
@@ -38,9 +46,10 @@ public class windowL extends javax.swing.JFrame {
         tabla.addColumn("EDITORIAL");
         tabla.addColumn("AUTOR");
         tabla.addColumn("PAGINAS");
+        tabla.addColumn("IMAGEN");
         listaLibro.setModel(tabla);
         
-        String[] datosLibro = new String[5];
+        String[] datosLibro = new String[6];
         
         try{
             ResultSet result = lib.read();
@@ -50,6 +59,7 @@ public class windowL extends javax.swing.JFrame {
                 datosLibro[2]=result.getString(3);
                 datosLibro[3]=result.getString(4);
                 datosLibro[4]=result.getString(5);
+                datosLibro[5]=result.getString(6);
                 tabla.addRow(datosLibro);
             }
         }
@@ -66,7 +76,9 @@ public class windowL extends javax.swing.JFrame {
         String guardarEdito = editorial.getText();
         String guardarAutor = autor.getText();
         int guardarPaginas = Integer.parseInt(pagina.getText());
-        if(lib.update(guardarCodig, guardarTitul, guardarEdito, guardarAutor, guardarPaginas)){
+        String guardarImg = img.getText();
+        
+        if(lib.update(guardarCodig, guardarTitul, guardarEdito, guardarAutor, guardarPaginas, guardarImg)){
             JOptionPane.showMessageDialog(null,"La actualizacion se realizo exitosamente");
         } else {
             JOptionPane.showMessageDialog(null,"Hubo un error al realizar la actualizacion");
@@ -74,13 +86,17 @@ public class windowL extends javax.swing.JFrame {
     }
     
     public void printDelete(){
-        String guardarCodigo = codigo.getText();
+        int fila = listaLibro.getSelectedRow();
+        String guardarCodigo = listaLibro.getValueAt(fila, 0).toString();
         
-        if(lib.delete(guardarCodigo)){
-            JOptionPane.showMessageDialog(null, "Successfully removed");
-        } else {
-            JOptionPane.showMessageDialog(null, "Delete failed");
-        }
+        int answer = Integer.parseInt(JOptionPane.showInputDialog(null, "No podra recuperar los datos borrados.\nDigite:\n1. Continuar\n2. Cancelar"));
+        if(answer == 1){
+            if(lib.delete(guardarCodigo)){
+                JOptionPane.showMessageDialog(null, "Successfully removed");
+            } else {
+                JOptionPane.showMessageDialog(null, "Delete failed");
+            }
+        } else {}
     }
     
     public void printClean(){
@@ -90,6 +106,7 @@ public class windowL extends javax.swing.JFrame {
         editorial.setText("");
         autor.setText("");
         pagina.setText("");
+        img.setText("");
     }
     
     public void printLoad(){
@@ -98,10 +115,13 @@ public class windowL extends javax.swing.JFrame {
         if(fila>=0){
             // codigo, editorial, titulo, pagina
             codigo.setText(listaLibro.getValueAt(fila, 0).toString());
+            codigo.setEnabled(false);
             titulo.setText(listaLibro.getValueAt(fila, 1).toString());
             editorial.setText(listaLibro.getValueAt(fila, 2).toString());
             autor.setText(listaLibro.getValueAt(fila, 3).toString());
             pagina.setText(listaLibro.getValueAt(fila, 4).toString());
+            if(listaLibro.getValueAt(fila, 5) == null){}
+            else{img.setText(listaLibro.getValueAt(fila, 5).toString());}
         }
     }
     
@@ -126,6 +146,9 @@ public class windowL extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pagina = new javax.swing.JTextField();
         load = new javax.swing.JButton();
+        field_img = new javax.swing.JLabel();
+        img = new javax.swing.JTextField();
+        add_img = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -284,6 +307,31 @@ public class windowL extends javax.swing.JFrame {
             }
         });
 
+        field_img.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        img.setBackground(new java.awt.Color(238, 238, 238));
+        img.setFont(new java.awt.Font("SansSerif", 1, 8)); // NOI18N
+        img.setForeground(new java.awt.Color(19, 22, 25));
+        img.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        img.setText("img");
+        img.setDisabledTextColor(new java.awt.Color(19, 22, 25));
+        img.setPreferredSize(new java.awt.Dimension(79, 26));
+        img.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imgActionPerformed(evt);
+            }
+        });
+
+        add_img.setBackground(new java.awt.Color(255, 87, 34));
+        add_img.setFont(new java.awt.Font("Serif", 1, 10)); // NOI18N
+        add_img.setForeground(new java.awt.Color(238, 238, 238));
+        add_img.setText("✎ Agregar img");
+        add_img.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_imgActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -293,7 +341,11 @@ public class windowL extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(181, 181, 181)
+                                .addComponent(field_img, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,14 +353,19 @@ public class windowL extends javax.swing.JFrame {
                             .addComponent(jSeparator4)
                             .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(read, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                            .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dalete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(codigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(editorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(autor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pagina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(add_img, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -332,7 +389,14 @@ public class windowL extends javax.swing.JFrame {
                         .addComponent(autor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pagina, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(add_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(8, 8, 8)))
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(create)
@@ -342,9 +406,13 @@ public class windowL extends javax.swing.JFrame {
                         .addComponent(update)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(load)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dalete))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(field_img, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
 
@@ -407,6 +475,29 @@ public class windowL extends javax.swing.JFrame {
         printLoad();
     }//GEN-LAST:event_loadActionPerformed
 
+    private void imgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imgActionPerformed
+
+    private void add_imgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_imgActionPerformed
+        FileNameExtensionFilter filtro;
+        filtro = new FileNameExtensionFilter("Formatos de archivos JEPG(*.JPG,*.JPEG)","jpg","jpeg","png");
+        JFileChooser archivo  = new JFileChooser();
+        archivo.addChoosableFileFilter(filtro);
+        archivo.setDialogTitle("Cargue una imagen");
+        File ruta = new File("C:\\Users\\leonardo\\Desktop\\Joel\\media");
+        // aqui empieza a buscar el archivo
+        archivo.setCurrentDirectory(ruta);
+        int explorador = archivo.showOpenDialog(null);
+        if(explorador == JFileChooser.APPROVE_OPTION){
+            File photo = archivo.getSelectedFile();
+            img.setText(String.valueOf(photo));
+            Image asset = getToolkit().getImage(img.getText());
+            asset = asset.getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+            field_img.setIcon(new ImageIcon(asset));
+        }
+    }//GEN-LAST:event_add_imgActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -444,11 +535,14 @@ public class windowL extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_img;
     public static javax.swing.JTextField autor;
     public static javax.swing.JTextField codigo;
     private javax.swing.JButton create;
     private javax.swing.JButton dalete;
     public static javax.swing.JTextField editorial;
+    private javax.swing.JLabel field_img;
+    public static javax.swing.JTextField img;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

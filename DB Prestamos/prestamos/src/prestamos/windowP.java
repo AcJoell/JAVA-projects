@@ -14,15 +14,20 @@ public class windowP extends javax.swing.JFrame {
     data joinDB = new data();
     Connection enter = joinDB.conectando();
     prestamo prest = new prestamo();
+    estudiante estu = new estudiante();
+    libro lib = new libro();
     
     public windowP() {
         initComponents();
         this.setLocationRelativeTo(null);
+        estu.loadCombo(student);
+        lib.loadCombo(book);
     }
 
     public void printCreate(){
-      String guardarEstudiante = estudiante.getText();
-      String guardarLibro = libro.getText();
+      
+      String guardarEstudiante = student.getItemAt(student.getSelectedIndex()).getCodigo();
+      String guardarLibro = book.getItemAt(book.getSelectedIndex()).getCodigo();
       
       Date fechaPrestamo = (Date) fecha.getDate();
       long time = fechaPrestamo.getTime();
@@ -62,15 +67,16 @@ public class windowP extends javax.swing.JFrame {
     }
     
     public void printUpdate(){
-        String guardarEstudiante = estudiante.getText();
-        String guardarLibro = libro.getText();
+        String guardarCodigo = codigo.getText();
+        //String guardarEstudiante = student.getItemAt(student.getSelectedIndex()).getCodigo();
+        //String guardarLibro = book.getItemAt(book.getSelectedIndex()).getCodigo();
         
         Date fechaPrestamo = (Date) fecha.getDate();
         long time = fechaPrestamo.getTime();
         java.sql.Date fechaMySQL = new java.sql.Date(time);
         String guardarFecha = fechaMySQL.toString();
         
-        if(prest.update(guardarEstudiante, guardarLibro, guardarFecha)){
+        if(prest.update(guardarFecha, guardarCodigo)){
             JOptionPane.showMessageDialog(null,"La actualizacion se realizo exitosamente");
         } else {
             JOptionPane.showMessageDialog(null,"Hubo un error al realizar la actualizacion");
@@ -80,17 +86,19 @@ public class windowP extends javax.swing.JFrame {
     public void printDelete(){
         int fila = listaPrestamo.getSelectedRow();
         String guardarCodigo = listaPrestamo.getValueAt(fila, 0).toString();
-        
-        if(prest.delete(guardarCodigo)){
-            JOptionPane.showMessageDialog(null, "Successfully removed");
-        } else {
-            JOptionPane.showMessageDialog(null, "Delete failed");
-        }
+        int answer = Integer.parseInt(JOptionPane.showInputDialog(null, "No podra recuperar los datos borrados.\nDigite:\n1. Continuar\n2. Cancelar"));
+        if(answer == 1){
+            if(prest.delete(guardarCodigo)){
+                JOptionPane.showMessageDialog(null, "Successfully removed");
+            } else {
+                JOptionPane.showMessageDialog(null, "Delete failed");
+            }
+        } else {}
     }
     
     public void printClean(){
-        estudiante.setText("");
-        libro.setText("");
+        student.setSelectedItem(null);
+        book.setSelectedItem(null);
         fecha.setDate(null);
     }
     
@@ -98,13 +106,18 @@ public class windowP extends javax.swing.JFrame {
         int fila = listaPrestamo.getSelectedRow();
          if(fila>=0){
              // estudiante, libro, fecha
-             estudiante.setText(listaPrestamo.getValueAt(fila, 0).toString());
-             libro.setText(listaPrestamo.getValueAt(fila, 1).toString());
+             codigo.setText(listaPrestamo.getValueAt(fila, 0).toString());
+             codigo.setEnabled(false);
+             
+             estu.loadCombo(student);
+             lib.loadCombo(book);
+             // estudiante.setText(listaPrestamo.getValueAt(fila, 1).toString());
+             // libro.setText(listaPrestamo.getValueAt(fila, 2).toString());
              
              SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
              Date guardarFecha;
              try{
-                 guardarFecha = formato.parse(listaPrestamo.getValueAt(fila, 2).toString());
+                 guardarFecha = formato.parse(listaPrestamo.getValueAt(fila, 3).toString());
                  fecha.setDate(guardarFecha);
              }
              catch(Exception e){
@@ -125,13 +138,14 @@ public class windowP extends javax.swing.JFrame {
         read = new javax.swing.JButton();
         create = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
-        estudiante = new javax.swing.JTextField();
-        libro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaPrestamo = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
         load = new javax.swing.JButton();
+        student = new javax.swing.JComboBox<>();
+        book = new javax.swing.JComboBox<>();
+        codigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,32 +208,6 @@ public class windowP extends javax.swing.JFrame {
         jSeparator4.setAlignmentX(6.9F);
         jSeparator4.setAlignmentY(6.9F);
 
-        estudiante.setBackground(new java.awt.Color(238, 238, 238));
-        estudiante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        estudiante.setForeground(new java.awt.Color(19, 22, 25));
-        estudiante.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        estudiante.setText("ESTUDIANTE");
-        estudiante.setDisabledTextColor(new java.awt.Color(19, 22, 25));
-        estudiante.setPreferredSize(new java.awt.Dimension(79, 26));
-        estudiante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estudianteActionPerformed(evt);
-            }
-        });
-
-        libro.setBackground(new java.awt.Color(238, 238, 238));
-        libro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        libro.setForeground(new java.awt.Color(19, 22, 25));
-        libro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        libro.setText("LIBRO");
-        libro.setDisabledTextColor(new java.awt.Color(19, 22, 25));
-        libro.setPreferredSize(new java.awt.Dimension(79, 26));
-        libro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                libroActionPerformed(evt);
-            }
-        });
-
         listaPrestamo.setBackground(new java.awt.Color(19, 22, 25));
         listaPrestamo.setForeground(new java.awt.Color(238, 238, 238));
         listaPrestamo.setModel(new javax.swing.table.DefaultTableModel(
@@ -254,6 +242,32 @@ public class windowP extends javax.swing.JFrame {
             }
         });
 
+        student.setBackground(new java.awt.Color(255, 87, 34));
+        student.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        student.setForeground(new java.awt.Color(238, 238, 238));
+        student.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentActionPerformed(evt);
+            }
+        });
+
+        book.setBackground(new java.awt.Color(255, 87, 34));
+        book.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        book.setForeground(new java.awt.Color(238, 238, 238));
+
+        codigo.setBackground(new java.awt.Color(238, 238, 238));
+        codigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        codigo.setForeground(new java.awt.Color(19, 22, 25));
+        codigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        codigo.setText("CODIGO ID");
+        codigo.setDisabledTextColor(new java.awt.Color(19, 22, 25));
+        codigo.setPreferredSize(new java.awt.Dimension(79, 26));
+        codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -268,15 +282,16 @@ public class windowP extends javax.swing.JFrame {
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(estudiante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                            .addComponent(libro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator4)
                             .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(read, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(update, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                             .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(load, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(student, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(book, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(codigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -290,10 +305,12 @@ public class windowP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(estudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(student, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(libro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(book, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,7 +326,7 @@ public class windowP extends javax.swing.JFrame {
                         .addComponent(delete)
                         .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jSeparator3)
@@ -350,18 +367,18 @@ public class windowP extends javax.swing.JFrame {
         printRead();
     }//GEN-LAST:event_createActionPerformed
 
-    private void estudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_estudianteActionPerformed
-
-    private void libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_libroActionPerformed
-
     private void loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadActionPerformed
         printClean();
         printLoad();
     }//GEN-LAST:event_loadActionPerformed
+
+    private void studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentActionPerformed
+
+    private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -397,9 +414,10 @@ public class windowP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JComboBox<libro> book;
+    public static javax.swing.JTextField codigo;
     private javax.swing.JButton create;
     private javax.swing.JButton delete;
-    public static javax.swing.JTextField estudiante;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -407,10 +425,10 @@ public class windowP extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    public static javax.swing.JTextField libro;
     private javax.swing.JTable listaPrestamo;
     private javax.swing.JButton load;
     private javax.swing.JButton read;
+    public static javax.swing.JComboBox<estudiante> student;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

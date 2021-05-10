@@ -97,20 +97,21 @@ public class prestamo {
         return result;
     }
 
-    public boolean update(String stu, String lib, String fec){
+    public boolean update(String fec, String cod){
         boolean resultado = false;
         data joinDB = new data();
         Connection enter = joinDB.conectando();
         
         try{
-            String code = "update tbprestamo set prestEstu=?, prestLib=?, prestFech=? where prestId=1";
+            String code = "update tbprestamo set prestFech=? where prestId=?";
             PreparedStatement prepared = enter.prepareStatement(code);
-            prepared.setString(1, stu);
-            prepared.setString(2, lib);
-            prepared.setString(3, fec);
+            prepared.setString(1, fec);
+            prepared.setString(2, cod);
+            resultado = prepared.executeUpdate()>0;
+            enter.close();
         }
         catch(Exception e){
-        
+            JOptionPane.showMessageDialog(null,"Error al actualizar"+e);
         }
         return resultado;
     }
@@ -122,7 +123,7 @@ public class prestamo {
         
         try{
             Statement statement = enter.createStatement();
-            String code = "select * from tbprestamo where prestId=' "+cod+" ' ";
+            String code = "select * from tbprestamo where prestId='"+cod+"'";
             ResultSet result = statement.executeQuery(code);
             if(result.next()){
                 String code2 = "delete from tbprestamo where prestId=?";
@@ -139,3 +140,24 @@ public class prestamo {
     }
     
 }
+
+/*
+    public boolean update(String stu, String lib, String fec, String cod){
+        boolean resultado = false;
+        data joinDB = new data();
+        Connection enter = joinDB.conectando();
+        
+        try{
+            String code = "update tbprestamo set prestEstu=?, prestLib=?, prestFech=? where prestId=?";
+            PreparedStatement prepared = enter.prepareStatement(code);
+            prepared.setString(1, stu);
+            prepared.setString(2, lib);
+            prepared.setString(3, fec);
+            prepared.setString(4, cod);
+        }
+        catch(Exception e){
+        
+        }
+        return resultado;
+    }
+*/

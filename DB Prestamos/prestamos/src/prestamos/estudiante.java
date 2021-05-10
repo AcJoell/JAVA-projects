@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class estudiante {
@@ -122,23 +123,45 @@ public class estudiante {
         boolean resultado = false;
         data joinDB = new data();
         Connection enter = joinDB.conectando();
-        
+
         try{
             Statement statement = enter.createStatement();
-            String code = "select * from tbestudiante where estuId=' "+cod+" ' ";
+            String code = "select * from tbestudiante where estuId='"+cod+"'";
             ResultSet result = statement.executeQuery(code);
             if(result.next()){
                 String code2 = "delete from tbestudiante where estuId=?";
                 PreparedStatement prepared = enter.prepareStatement(code2);
                 prepared.setString(1, cod);
                 resultado = prepared.executeUpdate()>0;
-                JOptionPane.showMessageDialog(null, cod+" se ha eliminado con exito");
             }
         } catch(Exception e){
-            JOptionPane.showMessageDialog(null, "El estudiante no existe");
+            JOptionPane.showMessageDialog(null, "El estudiante no existe"+e);
         }
         
         return resultado;
     }
+    
+    public void loadCombo(JComboBox<estudiante>estud){
+        data joinDB = new data(){};
+        Connection enter = joinDB.conectando();
+        String code = "select * from tbestudiante";
+        try{
+            Statement statement = enter.createStatement();
+            ResultSet result = statement.executeQuery(code);
+            while(result.next()){
+                estud.addItem(new estudiante(result.getString(1), result.getString(2), result.getString(3), result.getString(4)));
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No se pueden cargar el JComboBox de los estudiantes. "+e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return ""+codigo;
+    }
+    
+    
     
 }
