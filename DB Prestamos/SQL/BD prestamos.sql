@@ -21,14 +21,15 @@ create table tblibro (
   libEdit varchar(50) default 'Planeta',
   ibAutor varchar(30) not null,
   libPags int default null,
+  libFoto blob,
   PRIMARY KEY (libId)
 );
 
 insert into tblibro values
-('sbn4545421','Cien años de Soledad','Planeta','Gabriel Garcia',null),
-('sbn488888421','Cien años de Soledad','Planeta','Gabriel Garcia',null),
-('sbn5555550','Cuentos de Terror','Planeta','Alvaro Uribe',null),
-('sbn989989','Trigonometria 2','Planeta','Pepito Perez',null);
+('sbn4545421','Cien años de Soledad','Planeta','Gabriel Garcia',null,null),
+('sbn488888421','Cien años de Soledad','Planeta','Gabriel Garcia',null,null),
+('sbn5555550','Cuentos de Terror','Planeta','Alvaro Uribe',null,null),
+('sbn989989','Trigonometria 2','Planeta','Pepito Perez',null,null);
 
 create table tbprestamo (
   prestId int not null auto_increment,
@@ -43,3 +44,8 @@ create table tbprestamo (
 );
 
 insert into tbprestamo value(1,'CC12457895','sbn5555550','2020-10-31');
+
+use prestamos;
+select * from tbestudiante;
+select * from tblibro;
+select * from tbprestamo;
